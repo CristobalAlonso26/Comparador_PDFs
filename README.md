@@ -1,6 +1,22 @@
 # Comparador de Documentos PDF
 
-Herramienta para comparar dos documentos PDF y encontrar su porcentaje de similitud usando un LLM. Analiza si los documentos estan relacionados, extrae temas en comun y muestra un diagrama de Venn.
+## Acerca del proyecto
+
+Herramienta que permite comparar dos documentos PDF utilizando un LLM y análisis estadístico de texto (TF-IDF) para determinar su porcentaje de similitud, identificar temas en común y únicos, y generar un diagrama de Venn visual. Combina inteligencia artificial con técnicas clásicas de procesamiento de lenguaje natural para ofrecer resultados más completos. La interfaz está construida con **Streamlit**, lo que permite una interacción rápida y sencilla desde el navegador.
+
+### Decisiones estructurales
+
+El proyecto sigue un enfoque modular para mantener el código organizado y fácil de mantener:
+
+- **`pdf_extractor.py`**: Encapsula la lógica de extracción de texto de PDFs, separando esta responsabilidad del resto del flujo.
+- **`llm_analyzer.py`**: Combina comunicación con el LLM (API compatible con OpenAI) y análisis estadístico de texto con TF-IDF para extracción de temas y resumenes extractivos. Esto permite tener resultados tanto semánticos como estadísticos sin depender exclusivamente del modelo.
+- **`venn_diagram.py`**: Generación independiente del diagrama de Venn, reutilizable en otros contextos.
+- **`app.py`**: Punto de entrada de la aplicación Streamlit, orquestando los módulos anteriores sin contener lógica de negocio.
+- **Dockerizado**: Se incluye `Dockerfile` y `docker-compose.yml` para facilitar el despliegue sin dependencias locales.
+
+---
+
+Herramienta para comparar dos documentos PDF y encontrar su porcentaje de similitud usando un LLM y analisis estadistico de texto (TF-IDF). Analiza si los documentos estan relacionados, extrae temas en comun y muestra un diagrama de Venn.
 
 ## Instalacion con Docker (recomendado)
 
@@ -53,11 +69,14 @@ Se abrira en `http://localhost:8501`
 1. Selecciona el idioma de los documentos (Espanol o Ingles)
 2. Sube dos archivos PDF
 3. Presiona "Comparar Documentos"
-4. El LLM analiza ambos documentos y devuelve:
-   - Porcentaje de similitud
-   - Explicacion de la relacion
-   - Temas en comun y temas unicos
+4. La app muestra primero los resultados del **LLM**:
+   - Porcentaje de similitud y nivel de relacion
    - Diagrama de Venn visual
+   - Temas en comun y unicos identificados por el modelo
+   - Explicacion semantica de la relacion entre documentos
+5. Mas abajo se presentan los resultados del **analisis estadistico (TF-IDF)** para comparar:
+   - Resumenes extractivos de cada documento
+   - Palabras clave extraidas por relevancia estadistica (temas compartidos y unicos)
 
 ## Estructura del proyecto
 
@@ -65,7 +84,7 @@ Se abrira en `http://localhost:8501`
 |---|---|
 | `app.py` | Aplicacion principal de Streamlit |
 | `pdf_extractor.py` | Extraccion de texto de PDFs |
-| `llm_analyzer.py` | Analisis con LLM via API compatible con OpenAI |
+| `llm_analyzer.py` | Analisis con LLM + analisis estadistico TF-IDF (resumenes extractivos, extraccion de temas) |
 | `venn_diagram.py` | Generacion del diagrama de Venn |
 | `.env` | Configuracion de API key (no subir a git) |
 | `Dockerfile` | Configuracion del contenedor Docker |
