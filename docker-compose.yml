@@ -1,0 +1,12 @@
+services:
+  comparador-pdf:
+    build: .
+    container_name: comparador-pdf
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      - TRANSFORMERS_VERBOSITY=error
+      - TF_CPP_MIN_LOG_LEVEL=3
+    restart: unless-stopped

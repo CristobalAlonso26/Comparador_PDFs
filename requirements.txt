@@ -1,0 +1,9 @@
+streamlit
+pdfplumber
+matplotlib
+matplotlib-venn
+scikit-learn
+numpy
+nltk
+openai
+python-dotenv
