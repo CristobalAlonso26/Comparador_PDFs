@@ -298,3 +298,4 @@ La aplicación combina dos enfoques complementarios:
 | **Velocidad** | Depende de la API | Instantáneo |
 
 Esta combinación permite obtener tanto la **comprensión semántica** del LLM como la **objetividad estadística** del TF-IDF, ofreciendo al usuario una visión completa de la relación entre los documentos.
+  
